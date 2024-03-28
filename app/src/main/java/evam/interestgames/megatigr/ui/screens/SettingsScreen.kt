@@ -1,122 +1,109 @@
 package evam.interestgames.megatigr.ui.screens
 
+import android.Manifest
 import android.app.Activity
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.compose.BackHandler
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import evam.interestgames.megatigr.R
 import evam.interestgames.megatigr.model.Screen
 
 @Composable
-fun MainScreen(currentScreen: MutableState<Screen>){
+fun SettingsScreen(currentScreen:MutableState<Screen>,music:MutableState<Boolean>,notifications: MutableState<Boolean>){
+    Image(painter = painterResource(id = R.drawable.jungle), contentDescription = "",
+        modifier = Modifier.fillMaxSize(),
+        contentScale = ContentScale.Crop)
     val activity = LocalContext.current as Activity
+    BackHandler {
+        currentScreen.value = Screen.Main
+    }
     Box(modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-        ){
-        Image(painter = painterResource(id = R.drawable.splashpng),
-            contentDescription = "",
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.FillBounds)
+        contentAlignment = Alignment.Center) {
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally,
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = Modifier){
+            modifier = Modifier
+        ) {
 
             Button(
                 onClick = {
-                    currentScreen.value = Screen.Game
+                    music.value = !music.value
                 },
-                modifier = Modifier.size(210.dp,60.dp),
+                modifier = Modifier.size(230.dp, 70.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor =  Color(0xFF814F06),
+                    containerColor = Color(0xFF814F06),
                     contentColor = Color(0xFFF3F3F3)
                 ),
                 shape = RoundedCornerShape(8.dp)
             ) {
                 Text(
-                    text = "PLAY",
-                    fontSize = 29.sp,
-                    color = Color(0xFFF3F3F3)
-                )
-            }
-            Button(
-                onClick = {
-                    currentScreen.value = Screen.Settings
-                },
-                modifier = Modifier.size(210.dp,60.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor =  Color(0xFF814F06),
-                    contentColor = Color(0xFFF3F3F3)
-                ),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Text(
-                    text = "SETTINGS",
-                    fontSize = 29.sp,
-                    color = Color(0xFFF3F3F3)
-                )
-            }
-            Button(
-                onClick = {
-                    currentScreen.value = Screen.Policy
-                },
-                modifier = Modifier.size(210.dp,60.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor =  Color(0xFF814F06),
-                    contentColor = Color(0xFFF3F3F3)
-                ),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Text(
-                    text = "POLICY",
-                    fontSize = 29.sp,
+                    text = "MUSIC: ${if (music.value) "ON" else "OFF"}",
+                    fontSize = 19.sp,
                     color = Color(0xFFF3F3F3)
                 )
             }
             Button(
                 onClick = {
 
-                    activity.finishAffinity()
                 },
-                modifier = Modifier.size(210.dp,60.dp),
+                modifier = Modifier.size(230.dp, 70.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor =  Color(0xFF814F06),
+                    containerColor = Color(0xFF814F06),
                     contentColor = Color(0xFFF3F3F3)
                 ),
                 shape = RoundedCornerShape(8.dp)
             ) {
                 Text(
-                    text = "EXIT",
-                    fontSize = 29.sp,
+                    text = "NOTIFICATIONS: ${if (notifications.value) "ON" else "OFF"}",
+                    fontSize = 19.sp,
+                    color = Color(0xFFF3F3F3)
+                )
+            }
+            Button(
+                onClick = {
+                    currentScreen.value = Screen.Main
+                },
+                modifier = Modifier.size(230.dp, 70.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF814F06),
+                    contentColor = Color(0xFFF3F3F3)
+                ),
+                shape = RoundedCornerShape(8.dp)
+            ) {
+                Text(
+                    text = "BACK",
+                    fontSize = 19.sp,
                     color = Color(0xFFF3F3F3)
                 )
             }
 
 
         }
-
     }
-
-
 }

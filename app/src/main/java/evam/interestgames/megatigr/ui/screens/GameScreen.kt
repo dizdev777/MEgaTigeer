@@ -2,6 +2,7 @@ package evam.interestgames.megatigr.ui.screens
 
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -38,13 +39,14 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import evam.interestgames.megatigr.R
+import evam.interestgames.megatigr.model.Screen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @Composable
-fun GameScreen(coins:MutableState<Int>){
+fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
 
     Image(painter = painterResource(id = R.drawable.jungle),
         contentDescription = "",
@@ -70,6 +72,7 @@ fun GameScreen(coins:MutableState<Int>){
             R.drawable.tiger9,
             )
     }
+
     val nulls = remember{
         listOf(null,null,null,null,null,null,null,null,null)
     }
@@ -90,14 +93,12 @@ fun GameScreen(coins:MutableState<Int>){
     val scope = rememberCoroutineScope()
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center){
-        LazyVerticalGrid(columns = GridCells.FixedSize(90.dp),
+        LazyVerticalGrid(columns = GridCells.Fixed(3),
             verticalArrangement = Arrangement.spacedBy(4.dp),
             horizontalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = Modifier.size(278.dp),
+            modifier = Modifier.size(290.dp),
             content = {
                 items(items.value){ png->
-
-
 
                     val showJungle = remember{
                         mutableStateOf(true)
@@ -134,15 +135,19 @@ fun GameScreen(coins:MutableState<Int>){
                                         openedTigers.value++
                                         if (openedTigers.value == tigers.value) {
                                             scope.launch {
-                                                withContext(Dispatchers.Main){
+                                                withContext(Dispatchers.Main) {
                                                     Toast
-                                                        .makeText(context, "Win!", Toast.LENGTH_SHORT)
+                                                        .makeText(
+                                                            context,
+                                                            "Win!",
+                                                            Toast.LENGTH_SHORT
+                                                        )
                                                         .show()
                                                 }
 
                                             }
 
-                                            coins.value += (prize.value*bet.value).toInt()
+                                            coins.value += (prize.value * bet.value).toInt()
                                             gameRunning.value = false
                                             prize.value = 0.0
 
@@ -180,7 +185,8 @@ fun GameScreen(coins:MutableState<Int>){
 
         Row(modifier = Modifier
             .align(Alignment.BottomCenter)
-            .padding(16.dp).padding(bottom = 118.dp),
+            .padding(16.dp)
+            .padding(bottom = 118.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.Bottom){
 
@@ -320,13 +326,15 @@ fun GameScreen(coins:MutableState<Int>){
 
                         Button(
                             onClick = {
+                                        if(coins.value>=bet.value){
+                                            items.value =
+                                                allTigers.shuffled()
+                                                    .take(tigers.value) + nulls.take(9 - tigers.value)
+                                            gameRunning.value = true
+                                            prize.value = 0.0
+                                            coins.value -= bet.value
+                                        }
 
-                                items.value =
-                                    allTigers.shuffled()
-                                        .take(tigers.value) + nulls.take(9 - tigers.value)
-                                gameRunning.value = true
-                                prize.value = 0.0
-                                coins.value -= bet.value
                             },
                             modifier = Modifier,
                             colors = ButtonDefaults.buttonColors(
@@ -385,7 +393,9 @@ fun GameScreen(coins:MutableState<Int>){
 
 
 
-
+    BackHandler {
+        current.value = Screen.Main
+    }
 
 
 

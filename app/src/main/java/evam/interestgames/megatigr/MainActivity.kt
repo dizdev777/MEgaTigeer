@@ -27,16 +27,22 @@ class MainActivity : ComponentActivity() {
         val wc = WindowCompat.getInsetsController(window,window.decorView)
         wc.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         wc.hide(WindowInsetsCompat.Type.systemBars())
+
         setContent {
             MegaTigrTheme {
+                val music = remember{
+                mutableStateOf(true)
+            }
                 val coins = remember {
                     mutableStateOf(sharedPreferences.getInt("coins", 400))
                 }
                 val currentScreen: MutableState<Screen> = remember {
                     mutableStateOf(Screen.Load)
                 }
-
-                AppComponent(coins = coins, currentScreen = currentScreen)
+                val notifications =  remember{
+                mutableStateOf(false)
+            }
+                AppComponent(coins = coins, currentScreen = currentScreen,music,notifications)
 
                 DisposableEffect(key1 = Unit, effect = {
                     object : DisposableEffectResult {

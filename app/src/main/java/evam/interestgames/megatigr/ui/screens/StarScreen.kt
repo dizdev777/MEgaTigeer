@@ -32,6 +32,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -47,15 +49,17 @@ fun StarScreen(currentScreen:MutableState<Screen>){
         contentScale = ContentScale.Crop)
 
     Box(modifier = Modifier.padding(32.dp)
-        .background(Color(0xFF107214), RoundedCornerShape(32.dp)), contentAlignment = Alignment.Center){
+        .background(Color(0xB3107214), RoundedCornerShape(32.dp)), contentAlignment = Alignment.Center){
         Column(horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)){
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.padding(16.dp)){
             Text(text = stringResource(id = R.string.app_name),
                 color = Color.White,
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(16.dp),
-                fontWeight = FontWeight.Bold,)
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily(Font(R.font.junglebo2)))
             Text(text =
                     "Privacy Policy for the game \"Mega Tiger\":\n" +
                     "\n" +
@@ -66,14 +70,17 @@ fun StarScreen(currentScreen:MutableState<Screen>){
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(16.dp),
-                fontWeight = FontWeight.Bold,)
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily(Font(R.font.junglebo2))
+            )
             Spacer(modifier = Modifier.size(16.dp))
             Text(text = "Please, rate the game!",
                 color = Color.White,
                 fontSize = 14.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(4.dp),
-                fontWeight = FontWeight.Bold,)
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily(Font(R.font.junglebo2)))
             IJoqwjrqwrjijo()
             Button(
                 onClick = {
@@ -81,7 +88,7 @@ fun StarScreen(currentScreen:MutableState<Screen>){
                 },
                 modifier = Modifier.size(210.dp,60.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor =  Color(0xFF814F06),
+                    containerColor =  Color(0xFFA86605),
                     contentColor = Color(0xFFF3F3F3)
                 ),
                 shape = RoundedCornerShape(8.dp)

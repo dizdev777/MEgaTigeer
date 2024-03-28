@@ -1,11 +1,7 @@
 package evam.interestgames.megatigr.ui.screens
 
-import android.Manifest
 import android.app.Activity
-import android.content.pm.PackageManager
-import android.os.Build
 import androidx.activity.compose.BackHandler
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,18 +14,16 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import evam.interestgames.megatigr.R
 import evam.interestgames.megatigr.model.Screen
 
@@ -57,7 +51,7 @@ fun SettingsScreen(currentScreen:MutableState<Screen>,music:MutableState<Boolean
                 },
                 modifier = Modifier.size(230.dp, 70.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF814F06),
+                    containerColor = Color(0xFFA86605),
                     contentColor = Color(0xFFF3F3F3)
                 ),
                 shape = RoundedCornerShape(8.dp)
@@ -65,7 +59,8 @@ fun SettingsScreen(currentScreen:MutableState<Screen>,music:MutableState<Boolean
                 Text(
                     text = "MUSIC: ${if (music.value) "ON" else "OFF"}",
                     fontSize = 19.sp,
-                    color = Color(0xFFF3F3F3)
+                    color = Color(0xFFF3F3F3),
+                    fontFamily = FontFamily(Font(R.font.junglebo2))
                 )
             }
             Button(
@@ -74,7 +69,7 @@ fun SettingsScreen(currentScreen:MutableState<Screen>,music:MutableState<Boolean
                 },
                 modifier = Modifier.size(230.dp, 70.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF814F06),
+                    containerColor = Color(0xFFA86605),
                     contentColor = Color(0xFFF3F3F3)
                 ),
                 shape = RoundedCornerShape(8.dp)
@@ -82,7 +77,8 @@ fun SettingsScreen(currentScreen:MutableState<Screen>,music:MutableState<Boolean
                 Text(
                     text = "NOTIFICATIONS: ${if (notifications.value) "ON" else "OFF"}",
                     fontSize = 19.sp,
-                    color = Color(0xFFF3F3F3)
+                    color = Color(0xFFF3F3F3),
+                    fontFamily = FontFamily(Font(R.font.junglebo2))
                 )
             }
             Button(
@@ -91,7 +87,7 @@ fun SettingsScreen(currentScreen:MutableState<Screen>,music:MutableState<Boolean
                 },
                 modifier = Modifier.size(230.dp, 70.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF814F06),
+                    containerColor = Color(0xFFA86605),
                     contentColor = Color(0xFFF3F3F3)
                 ),
                 shape = RoundedCornerShape(8.dp)
@@ -99,7 +95,8 @@ fun SettingsScreen(currentScreen:MutableState<Screen>,music:MutableState<Boolean
                 Text(
                     text = "BACK",
                     fontSize = 19.sp,
-                    color = Color(0xFFF3F3F3)
+                    color = Color(0xFFF3F3F3),
+                    fontFamily = FontFamily(Font(R.font.junglebo2))
                 )
             }
 

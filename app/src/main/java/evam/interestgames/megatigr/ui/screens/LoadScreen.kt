@@ -6,13 +6,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -22,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -49,7 +47,7 @@ fun MainScreen(currentScreen: MutableState<Screen>){
                 },
                 modifier = Modifier.size(210.dp,60.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor =  Color(0xFF814F06),
+                    containerColor =  Color(0xFFA86605),
                     contentColor = Color(0xFFF3F3F3)
                 ),
                 shape = RoundedCornerShape(8.dp)
@@ -57,7 +55,8 @@ fun MainScreen(currentScreen: MutableState<Screen>){
                 Text(
                     text = "PLAY",
                     fontSize = 29.sp,
-                    color = Color(0xFFF3F3F3)
+                    color = Color(0xFFF3F3F3),
+                    fontFamily = FontFamily(Font(R.font.junglebo2))
                 )
             }
             Button(
@@ -66,7 +65,7 @@ fun MainScreen(currentScreen: MutableState<Screen>){
                 },
                 modifier = Modifier.size(210.dp,60.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor =  Color(0xFF814F06),
+                    containerColor =  Color(0xFFA86605),
                     contentColor = Color(0xFFF3F3F3)
                 ),
                 shape = RoundedCornerShape(8.dp)
@@ -74,7 +73,8 @@ fun MainScreen(currentScreen: MutableState<Screen>){
                 Text(
                     text = "SETTINGS",
                     fontSize = 29.sp,
-                    color = Color(0xFFF3F3F3)
+                    color = Color(0xFFF3F3F3),
+                    fontFamily = FontFamily(Font(R.font.junglebo2))
                 )
             }
             Button(
@@ -83,7 +83,7 @@ fun MainScreen(currentScreen: MutableState<Screen>){
                 },
                 modifier = Modifier.size(210.dp,60.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor =  Color(0xFF814F06),
+                    containerColor =  Color(0xFFA86605),
                     contentColor = Color(0xFFF3F3F3)
                 ),
                 shape = RoundedCornerShape(8.dp)
@@ -91,7 +91,8 @@ fun MainScreen(currentScreen: MutableState<Screen>){
                 Text(
                     text = "POLICY",
                     fontSize = 29.sp,
-                    color = Color(0xFFF3F3F3)
+                    color = Color(0xFFF3F3F3),
+                    fontFamily = FontFamily(Font(R.font.junglebo2))
                 )
             }
             Button(
@@ -101,7 +102,7 @@ fun MainScreen(currentScreen: MutableState<Screen>){
                 },
                 modifier = Modifier.size(210.dp,60.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor =  Color(0xFF814F06),
+                    containerColor =  Color(0xFFA86605),
                     contentColor = Color(0xFFF3F3F3)
                 ),
                 shape = RoundedCornerShape(8.dp)
@@ -109,7 +110,8 @@ fun MainScreen(currentScreen: MutableState<Screen>){
                 Text(
                     text = "EXIT",
                     fontSize = 29.sp,
-                    color = Color(0xFFF3F3F3)
+                    color = Color(0xFFF3F3F3),
+                    fontFamily = FontFamily(Font(R.font.junglebo2))
                 )
             }
 

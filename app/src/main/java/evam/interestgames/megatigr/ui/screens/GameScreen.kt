@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -93,6 +94,17 @@ fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
     val scope = rememberCoroutineScope()
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center){
+
+
+        Image(painter = painterResource(id = R.drawable.backbutton),
+            contentDescription = "",
+            modifier = Modifier.align(Alignment.TopStart).padding(24.dp).size(64.dp)
+                .clickable {
+                           current.value = Screen.Main
+                }
+        ,
+            contentScale = ContentScale.Fit)
+
         LazyVerticalGrid(columns = GridCells.Fixed(3),
             verticalArrangement = Arrangement.spacedBy(4.dp),
             horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -118,21 +130,24 @@ fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
                                     if (png == null) {
                                         scope.launch {
                                             delay(100)
-                                            withContext(Dispatchers.Main) {
+
                                                 Toast
                                                     .makeText(context, "Oops!", Toast.LENGTH_SHORT)
                                                     .show()
-                                            }
+
 
                                             gameRunning.value = false
                                             prize.value = 0.0
+                                            openedTigers.value = 0
                                         }
                                     } else {
-                                        prize.value += (9.0 - tigers.value) / 7.0
+                                        val lastTigers = tigers.value - openedTigers.value
+                                        val lastJungle = 9 - openedTigers.value
+                                        prize.value += (9.0 - tigers.value) / 5.0 * ((lastJungle - lastTigers)  /10*1.7+1)
                                         openedTigers.value++
                                         if (openedTigers.value == tigers.value) {
                                             scope.launch {
-                                                withContext(Dispatchers.Main) {
+
                                                     Toast
                                                         .makeText(
                                                             context,
@@ -140,7 +155,8 @@ fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
                                                             Toast.LENGTH_SHORT
                                                         )
                                                         .show()
-                                                }
+
+                                                openedTigers.value = 0
 
                                             }
 
@@ -196,20 +212,22 @@ fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
                     },
                     modifier = Modifier,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor =  Color(0xFF5E3903),
+                        containerColor =  Color(0xFFA86605),
                         contentColor = Color(0xFFF3F3F3)
                     ),
-                    shape = RoundedCornerShape(50)
+                    shape = RoundedCornerShape(20)
                 ) {
                     Text(
                         text = "+",
                         fontSize = 19.sp,
-                        color = Color(0xFFF3F3F3)
+                        color = Color(0xFFF3F3F3),
+                        fontFamily = FontFamily(Font(R.font.junglebo2))
                     )
                 }
                 Text(text = "BET: ${bet.value}",
                     fontSize = 22.sp,
                     color = Color(0xFFF3F3F3),
+                    fontFamily = FontFamily(Font(R.font.junglebo2)),
                     modifier = Modifier
                         .background(
                             Color(0xFF5E3903),
@@ -223,15 +241,16 @@ fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
                     },
                     modifier = Modifier,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF5E3903),
+                        containerColor = Color(0xFFA86605),
                         contentColor = Color(0xFFF3F3F3)
                     ),
-                    shape = RoundedCornerShape(50)
+                    shape = RoundedCornerShape(20)
                 ) {
                     Text(
                         text = "-",
                         fontSize = 19.sp,
-                        color = Color(0xFFF3F3F3)
+                        color = Color(0xFFF3F3F3),
+                        fontFamily = FontFamily(Font(R.font.junglebo2))
                     )
                 }
 
@@ -249,21 +268,22 @@ fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
                         },
                         modifier = Modifier,
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFF5E3903),
+                            containerColor = Color(0xFFA86605),
                             contentColor = Color(0xFFF3F3F3)
                         ),
-                        shape = RoundedCornerShape(50)
+                        shape = RoundedCornerShape(20)
                     ) {
                         Text(
                             text = "-",
                             fontSize = 19.sp,
-                            color = Color(0xFFF3F3F3)
+                            color = Color(0xFFF3F3F3),
+                            fontFamily = FontFamily(Font(R.font.junglebo2))
                         )
                     }
                     Text(text = "TIGERS: ${tigers.value}",
                         fontSize = 18.sp,
                         color = Color(0xFFF3F3F3),
-                        fontFamily = FontFamily.Cursive,
+                        fontFamily = FontFamily(Font(R.font.junglebo2)),
                         modifier = Modifier
                             .background(
                                 Color(0xFF5E3903),
@@ -278,15 +298,16 @@ fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
                         },
                         modifier = Modifier,
                         colors = ButtonDefaults.buttonColors(
-                            containerColor =  Color(0xFF5E3903),
+                            containerColor =  Color(0xFFA86605),
                             contentColor = Color(0xFFF3F3F3)
                         ),
-                        shape = RoundedCornerShape(50)
+                        shape = RoundedCornerShape(20)
                     ) {
                         Text(
                             text = "+",
                             fontSize = 19.sp,
-                            color = Color(0xFFF3F3F3)
+                            color = Color(0xFFF3F3F3),
+                            fontFamily = FontFamily(Font(R.font.junglebo2))
                         )
                     }
 
@@ -298,7 +319,7 @@ fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
                     Text(text = "COINS: ${coins.value}",
                         fontSize = 17.sp,
                         color = Color(0xFFF3F3F3),
-                        fontFamily = FontFamily.Cursive,
+                        fontFamily = FontFamily(Font(R.font.junglebo2)),
                         modifier = Modifier
                             .background(
                                 Color(0xFF5E3903),
@@ -308,7 +329,7 @@ fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
                     Text(text = "PRIZE: ${(prize.value*bet.value).toInt()}",
                         fontSize = 17.sp,
                         color = Color(0xFFF3F3F3),
-                        fontFamily = FontFamily.Cursive,
+                        fontFamily = FontFamily(Font(R.font.junglebo2)),
                         modifier = Modifier
                             .background(
                                 Color(0xFF5E3903),
@@ -325,8 +346,8 @@ fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
                             onClick = {
                                         if(coins.value>=bet.value){
                                             items.value =
-                                                allTigers.shuffled()
-                                                    .take(tigers.value) + nulls.take(9 - tigers.value)
+                                                (allTigers.shuffled()
+                                                    .take(tigers.value) + nulls.take(9 - tigers.value)).shuffled()
                                             gameRunning.value = true
                                             prize.value = 0.0
                                             coins.value -= bet.value
@@ -335,7 +356,7 @@ fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
                             },
                             modifier = Modifier,
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = if (!gameRunning.value) Color(0xFF5E3903) else Color(
+                                containerColor = if (!gameRunning.value) Color(0xFF38A33D) else Color(
                                     0xFF7A7473
                                 ),
                                 contentColor = Color(0xFFF3F3F3)
@@ -346,19 +367,19 @@ fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
                                 text = "PLAY",
                                 fontSize = 29.sp,
                                 color = Color(0xFFF3F3F3),
-                                fontFamily = FontFamily.Cursive
+                                fontFamily = FontFamily(Font(R.font.junglebo2))
                             )
                         }
                         Button(
                             onClick = {
                                 scope.launch {
-                                    withContext(Dispatchers.Main) {
+
                                         Toast
                                             .makeText(context, "Good! ", Toast.LENGTH_SHORT)
                                             .show()
-                                    }
-                                }
 
+                                }
+                                openedTigers.value = 0
                                 coins.value += (prize.value*bet.value).toInt()
 
                                 gameRunning.value = false
@@ -366,7 +387,7 @@ fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
                             },
                             modifier = Modifier,
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = if (gameRunning.value) Color(0xFF5E3903) else Color(
+                                containerColor = if (gameRunning.value) Color(0xFFFFC107) else Color(
                                     0xFF7A7473
                                 ),
                                 contentColor = Color(0xFFF3F3F3)
@@ -377,7 +398,7 @@ fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
                                 text = "STOP",
                                 fontSize = 29.sp,
                                 color = Color(0xFFF3F3F3),
-                                fontFamily = FontFamily.Cursive
+                                fontFamily = FontFamily(Font(R.font.junglebo2))
                             )
                         }
                     }

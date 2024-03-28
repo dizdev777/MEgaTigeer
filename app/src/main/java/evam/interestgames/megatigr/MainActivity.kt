@@ -24,14 +24,14 @@ import evam.interestgames.megatigr.ui.theme.MegaTigrTheme
 
 class MainActivity : ComponentActivity() {
     lateinit var sharedPreferences: SharedPreferences
-
+lateinit var musicPlayer: MediaPlayer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPreferences = getSharedPreferences("MegaTigr", Context.MODE_PRIVATE)
         val wc = WindowCompat.getInsetsController(window,window.decorView)
         wc.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         wc.hide(WindowInsetsCompat.Type.systemBars())
-        val musicPlayer = MediaPlayer.create(this,R.raw.music)
+         musicPlayer = MediaPlayer.create(this,R.raw.music)
         musicPlayer.isLooping = true
         setContent {
             MegaTigrTheme {
@@ -69,6 +69,16 @@ class MainActivity : ComponentActivity() {
                 })
             }
         }
+    }
+
+    override fun onPause() {
+        musicPlayer.pause()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        musicPlayer.start()
+        super.onResume()
     }
 
 }

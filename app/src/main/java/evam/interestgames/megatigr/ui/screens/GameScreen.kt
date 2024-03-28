@@ -96,7 +96,7 @@ fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
         LazyVerticalGrid(columns = GridCells.Fixed(3),
             verticalArrangement = Arrangement.spacedBy(4.dp),
             horizontalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = Modifier.size(290.dp),
+            modifier = Modifier,
             content = {
                 items(items.value){ png->
 
@@ -109,14 +109,11 @@ fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
                         }
                     })
 
-
                     Box(contentAlignment = Alignment.Center,
                         modifier = Modifier
-                            .size(80.dp)
-
+                            .size(74.dp)
                             .clickable {
                                 if (gameRunning.value) {
-
                                     showJungle.value = false
                                     if (png == null) {
                                         scope.launch {
@@ -168,7 +165,7 @@ fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
                             Image(painter = painterResource(id = R.drawable.junlesq) , contentDescription = "",
                                 modifier = Modifier
                                     .fillMaxSize()
-                                    .clip(RoundedCornerShape(12.dp)))
+                                    .clip(RoundedCornerShape(10.dp)))
                         }
 
                     }
@@ -276,7 +273,7 @@ fun GameScreen(coins:MutableState<Int>,current:MutableState<Screen>){
 
                     Button(
                         onClick = {
-                            if(tigers.value<9)
+                            if(tigers.value<8)
                                 tigers.value++
                         },
                         modifier = Modifier,

@@ -56,7 +56,8 @@ fun StarScreen(currentScreen:MutableState<Screen>){
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(16.dp),
                 fontWeight = FontWeight.Bold,)
-            Text(text = "Privacy Policy for the game \"Mega Tiger\":\n" +
+            Text(text =
+                    "Privacy Policy for the game \"Mega Tiger\":\n" +
                     "\n" +
                     "We, the developers of the game \"Mega Tiger\", value your privacy and are committed to protecting your data. Our game does not collect any sensitive information about users. We do not gather personal data such as names, email addresses, or phone numbers.\n" +
                     "\n" +

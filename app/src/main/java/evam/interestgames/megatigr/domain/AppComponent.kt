@@ -18,6 +18,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun AppComponent(coins:MutableState<Int>,currentScreen:MutableState<Screen>,music: MutableState<Boolean>,notifications: MutableState<Boolean>){
 
+
     AnimatedVisibility(visible = currentScreen.value == Screen.Load) {
         LoadingScreen()
         LaunchedEffect(key1 = Unit, block = {

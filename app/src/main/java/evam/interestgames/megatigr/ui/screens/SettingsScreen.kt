@@ -14,6 +14,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,8 +25,12 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.onesignal.OneSignal
 import evam.interestgames.megatigr.R
 import evam.interestgames.megatigr.model.Screen
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
 fun SettingsScreen(currentScreen:MutableState<Screen>,music:MutableState<Boolean>,notifications: MutableState<Boolean>){
@@ -36,6 +41,7 @@ fun SettingsScreen(currentScreen:MutableState<Screen>,music:MutableState<Boolean
     BackHandler {
         currentScreen.value = Screen.Main
     }
+    val scope = rememberCoroutineScope()
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center) {
 
@@ -65,7 +71,17 @@ fun SettingsScreen(currentScreen:MutableState<Screen>,music:MutableState<Boolean
             }
             Button(
                 onClick = {
-
+                    OneSignal.initWithContext(activity, "6db2c88a-84ac-4d48-9a69-d8a5c371713f")
+                    scope.launch {
+                        OneSignal.Notifications.requestPermission(true)
+                    }
+                    notifications.value = !notifications.value
+                    if(notifications.value){
+                        OneSignal.User.pushSubscription.optIn()
+                    }
+                    else{
+                        OneSignal.User.pushSubscription.optOut()
+                    }
                 },
                 modifier = Modifier.size(230.dp, 70.dp),
                 colors = ButtonDefaults.buttonColors(
